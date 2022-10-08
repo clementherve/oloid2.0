@@ -1,48 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/page/pages.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class EmailHeader extends StatelessWidget {
-  final Function createEmail;
-  final Function(String query) searchEmail;
-
   const EmailHeader({
     Key? key,
-    required this.createEmail,
-    required this.searchEmail,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color(0xff2e3440),
-        height: 60,
-        child: Row(children: [
+      color: Theme.of(context).cardTheme.color,
+      height: 10.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           Container(
             margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
             clipBehavior: Clip.hardEdge,
-            width: MediaQuery.of(context).size.width - 70,
+            width: 85.w,
             child: TextField(
-              onSubmitted: (String query) async => await searchEmail(query),
+              onChanged: (String query) {
+                context.read<EmailBloc>().add(EmailSort(query));
+              },
               style: TextStyle(
                 color: Theme.of(context).textTheme.button!.color,
               ),
-              decoration: const InputDecoration(
+              cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+              decoration: InputDecoration(
                 border: InputBorder.none,
                 filled: true,
-                fillColor: Color.fromARGB(255, 38, 43, 53),
+                fillColor: Theme.of(context).backgroundColor,
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Color(0xffd8dee9),
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
                 ),
               ),
             ),
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.create,
-                color: Color(0xffd8dee9),
-              ))
-        ]));
+          Expanded(
+            child: Center(
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EmailSendPage(),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.create,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
+                  size: 25.sp,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

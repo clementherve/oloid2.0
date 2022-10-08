@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:oloid2/widget/card.dart';
-import '../../model/grade.dart';
+import '../../model/grade_model.dart';
 
 class Grade extends StatelessWidget {
   final GradeModel gradeModel;
@@ -16,8 +16,11 @@ class Grade extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       o: gradeModel,
+      groupeSize: 120,//TODO implement groupe size
+      rank: gradeModel.rank,
       text1: gradeModel.name,
       text2:
           "${gradeModel.average.toStringAsFixed(2)} • ${gradeModel.mediane.toStringAsFixed(2)} • ${gradeModel.author}",

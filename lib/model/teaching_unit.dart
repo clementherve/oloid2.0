@@ -1,4 +1,4 @@
-import 'package:oloid2/model/grade.dart';
+import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/text_model.dart';
 
 import 'teacher_model.dart';
@@ -24,7 +24,7 @@ class TeachingUnitModel {
   String mastersShort() {
     String mastersStr = "";
     for (TeacherModel m in masters) {
-      mastersStr += m.name.split(" ")[1] + ', ';
+      mastersStr += '${m.name.split(" ")[1]}, ';
     }
     return masters.length > 2
         ? mastersStr.substring(0, masters.length - 2)

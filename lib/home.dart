@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/model/event.dart';
-import 'package:oloid2/model/grade.dart';
-
-import 'package:oloid2/model/settings.dart';
-import 'package:oloid2/model/day.dart';
-import 'package:oloid2/model/email.dart';
-import 'package:oloid2/model/teaching_unit.dart';
-
-import 'package:oloid2/page/teaching_units_page.dart';
 import 'package:oloid2/page/agenda_page.dart';
-import 'package:oloid2/page/emails_page.dart';
+import 'package:oloid2/page/mails/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
-
+import 'package:oloid2/page/teaching_units_page.dart';
 import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {
-  final SettingsModel settings;
-  final Function(SettingsModel s) onSettingsChanged;
-
-  const Home(this.settings, this.onSettingsChanged, {Key? key})
-      : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,133 +28,6 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: PageView(
-          children: [
-            TeachingUnitsPage(
-              teachingUnits: [
-                TeachingUnitModel(
-                  isSeen: false,
-                  isHidden: false,
-                  name: 'A',
-                  grades: [
-                    GradeModel(
-                      name: 'Example Grade',
-                      author: 'Grade author',
-                      gradeNumerator: 15,
-                      gradeDenominator: 20,
-                      rank: 2,
-                      average: 10,
-                      mediane: 9.5,
-                    )
-                  ],
-                  masters: [],
-                  textValues: [],
-                ),
-                TeachingUnitModel(
-                  isSeen: false,
-                  isHidden: true,
-                  name: 'B',
-                  grades: [
-                    GradeModel(
-                      name: 'Example Grade',
-                      author: 'Grade author',
-                      gradeNumerator: 9,
-                      gradeDenominator: 20,
-                      rank: 2,
-                      average: 10,
-                      mediane: 9.5,
-                    )
-                  ],
-                  masters: [],
-                  textValues: [],
-                ),
-                TeachingUnitModel(
-                  isSeen: false,
-                  isHidden: false,
-                  name: 'C',
-                  grades: [
-                    GradeModel(
-                      name: 'Example Grade',
-                      author: 'Grade author',
-                      gradeNumerator: 11,
-                      gradeDenominator: 20,
-                      rank: 2,
-                      average: 10,
-                      mediane: 9.5,
-                    )
-                  ],
-                  masters: [],
-                  textValues: [],
-                ),
-              ],
-              forceGreen: widget.settings.forceGreen,
-              showHidden: widget.settings.showHiddenUE,
-              onRefresh: () async => {/*TODO*/},
-            ),
-            AgendaPage(
-              showMiniCalendar: widget.settings.showMiniCalendar,
-              events: [
-                DayModel(
-                  'Aujoudhui',
-                  [
-                    EventModel(
-                      description: 'Matière A',
-                      location: 'Amphi themis',
-                      summary: 'résumé de l\'evt',
-                      teacher: 'teacher TEACHER',
-                      eventLastModified: DateTime.now(),
-                      start: DateTime.now().subtract(Duration(hours: 2)),
-                      end: DateTime.now().add(Duration(minutes: 30)),
-                    ),
-                    EventModel(
-                      description: 'Matière B',
-                      location: 'Amphi themis',
-                      summary: 'résumé de l\'evt',
-                      teacher: 'teacher TEACHER',
-                      eventLastModified: DateTime.now(),
-                      start: DateTime.now().add(Duration(hours: 1)),
-                      end: DateTime.now().add(Duration(hours: 2)),
-                    ),
-                  ],
-                ),
-                DayModel('Demain', [
-                  EventModel(
-                    description: 'Description de l\'evt 3',
-                    location: 'position',
-                    summary: 'résumé de l\'evt',
-                    teacher: 'teacher TEACHER',
-                    eventLastModified: DateTime.now(),
-                    start: DateTime.now().add(Duration(hours: 1)),
-                    end: DateTime.now().add(Duration(hours: 2)),
-                  ),
-                ]),
-                DayModel('un jour', []),
-              ],
-              onRefresh: () async => {/*TODO*/},
-            ),
-            EmailsPage(
-              emails: [
-                EmailModel(
-                  date: DateTime.now(),
-                  excerpt: 'lorem ipsum dolor sit amet',
-                  isRead: false,
-                  sender: 'sender@mail.com',
-                  subject: 'the subject of the mail',
-                ),
-              ],
-              createEmail: () {/*TODO*/},
-              searchEmail: (String query) async {/*TODO*/},
-              onRefresh: () async {/*TODO*/},
-            ),
-            SettingsPage(
-              settings: widget.settings,
-              onSettingsChanged: (SettingsModel s) {
-                widget.settings.copy(s);
-                widget.onSettingsChanged(s);
-
-                setState(() {});
-              },
-            ),
-          ],
           controller: pageController,
           pageSnapping: true,
           physics: const RangeMaintainingScrollPhysics(),
@@ -175,7 +35,13 @@ class HomeState extends State<Home> {
             setState(() {
               if (index != currentIndex) currentIndex = index;
             });
-          }),
+          },
+          children: [
+            const TeachingUnitsPage(),
+            const AgendaPage(),
+            EmailsPage(),
+            SettingsPage(),
+          ]),
       bottomNavigationBar: BottomNavBar(
         currentIndex: currentIndex,
         onTap: (index) {

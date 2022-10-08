@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:oloid2/model/grade_model.dart';
+import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/theme/grade_color.dart';
+import 'package:sizer/sizer.dart';
 
 class Card extends StatelessWidget {
   final dynamic o;
@@ -9,11 +12,15 @@ class Card extends StatelessWidget {
   final String text2;
   final bool forceGreen;
   final bool isSeen;
+  final int? rank;
+  final int groupeSize;
   final Function(dynamic o) onTap;
 
   const Card({
     Key? key,
     required this.o,
+    this.rank,
+    required this.groupeSize,
     required this.text1,
     required this.gradeNumerator,
     required this.gradeDenominator,
@@ -24,17 +31,67 @@ class Card extends StatelessWidget {
   }) : super(key: key);
 
   Color _mainGradeColor() {
-    final double gradeValue =
-        double.tryParse(gradeNumerator) ?? double.infinity;
-    final double gradeDenominatorValue =
-        double.tryParse(gradeDenominator) ?? double.infinity;
-    final bool isGreen =
-        (gradeValue >= (gradeDenominatorValue / 2)) || forceGreen;
-
-    if (isGreen) {
+    if (forceGreen || rank == null) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      return isSeen ? GradeColor.seenRed : GradeColor.unseenRed;
+      if (o is GradeModel) {
+        return _gradeColor(o);
+      } else if (o is TeachingUnitModel) {
+        if (o.grades.isNotEmpty) {
+          int red = 0;
+          int green = 0;
+          int blue = 0;
+          for (var i in o.grades) {
+            Color color = _gradeColor(i);
+            red += color.red;
+            green += color.green;
+            blue += color.blue;
+          }
+
+          red = (red / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+          green =
+              (green / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+          blue =
+              (blue / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+          return Color.fromARGB(255, red, green, blue);
+        } else {
+          return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+        }
+      }
+    }
+    return Colors.white;
+  }
+
+  Color _gradeColor(GradeModel grade) {
+    if (forceGreen || !grade.isValidGrade) {
+      return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+    } else {
+      //original official fonction
+      // function rank_to_color(rank, nr) {
+      //   var x = Math.floor(511 * rank / nr);
+      //   var b, c = '';
+      //   if (rank > nr / 2) {
+      //     b = '255,' + (511 - x) + ',' + (511 - x);
+      //     if (rank > 3 * nr / 4)
+      //       c = ';color:#FFF';
+      //   }
+      //   else
+      //     b = x + ',255,' + x;
+      //
+      //   return 'background: rgb(' + b + ')' + c
+      // }
+      var x = (511 * grade.rank / grade.groupSize).floor();
+      Color b = Colors.red;
+      if (grade.rank > grade.groupSize / 2) {
+        b = Color.fromARGB(255, 255, 511 - x, 511 - x);
+        if (grade.rank > 3 * grade.groupSize / 4) {
+          b = GradeColor.seenGreen;
+          //TODO add more explicit felicitation
+        }
+      } else {
+        b = Color.fromARGB(255, x, 255, x);
+      }
+      return b;
     }
   }
 
@@ -43,7 +100,7 @@ class Card extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(o), // TODO: give it the required infos
       child: Container(
-        height: 70,
+        height: 11.h,
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -55,32 +112,30 @@ class Card extends StatelessWidget {
         ),
         child: Row(children: [
           Container(
-            height: 70,
-            width: 90,
+            height: 11.h,
+            width: 25.w,
             decoration: BoxDecoration(color: _mainGradeColor()),
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: double.infinity,
-                  padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     gradeNumerator,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                     ),
                   ),
                 ),
                 Container(
-                  width: 45,
-                  height: 1,
-                  margin: const EdgeInsets.only(top: 44, left: 22),
+                  width: 15.w,
+                  height: 0.2.h,
                   color: Colors.white54,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 48),
+                SizedBox(
                   width: double.infinity,
                   child: Text(
                     gradeDenominator,
@@ -94,6 +149,7 @@ class Card extends StatelessWidget {
           Container(
             height: double.infinity,
             margin: const EdgeInsets.only(left: 10),
+            width: 60.w,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +157,9 @@ class Card extends StatelessWidget {
                 Text(
                   text1,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                  ),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      overflow: TextOverflow.clip),
                 ),
                 const SizedBox(
                   height: 5,
