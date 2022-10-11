@@ -56,6 +56,9 @@ class AuthentificationBloc
       if (await tomuss.authenticate()) {
         dartus = tomuss;
         if (event.keepLogedIn) {
+          if (!authBox.isOpen) {
+            authBox = await Hive.openBox<Authentication>("authentification");
+          }
           await authBox.put("credential", auth);
         }
         emit(AuthentificationAuthentificated());
@@ -63,7 +66,7 @@ class AuthentificationBloc
         emit(AuthentificationError());
       }
     }
-    await authBox.close();
+    // await authBox.close();
   }
 
   Future<void> forget(event, Emitter<AuthentificationState> emit) async {
@@ -73,7 +76,7 @@ class AuthentificationBloc
     Box<Authentication> authBox =
         await Hive.openBox<Authentication>("authentification");
     authBox.delete("credential");
-    await authBox.close();
+    // await authBox.close();
   }
 
   Future<void> logout(event, Emitter<AuthentificationState> emit) async {
@@ -85,7 +88,7 @@ class AuthentificationBloc
     authBox.delete("credential");
     usename = "";
     password = "";
-    await authBox.close();
+    // await authBox.close();
     await dartus.logout();
     emit(AuthentificationNeedCredential());
   }
