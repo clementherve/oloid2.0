@@ -7,21 +7,21 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "47.0.0"
+    version: "49.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.7.0"
+    version: "5.1.0"
   archive:
     dependency: transitive
     description:
       name: archive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.1"
+    version: "3.3.2"
   args:
     dependency: transitive
     description:
@@ -35,7 +35,7 @@ packages:
       name: asn1lib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.1"
   async:
     dependency: transitive
     description:
@@ -84,7 +84,7 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   build_daemon:
     dependency: transitive
     description:
@@ -105,14 +105,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.3.2"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.2.4"
+    version: "7.2.6"
   built_collection:
     dependency: transitive
     description:
@@ -182,7 +182,7 @@ packages:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.1.1"
   cookie_jar:
     dependency: transitive
     description:
@@ -223,8 +223,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: bcb901379b46f466310a5374508d65f64d9cdb6b
-      url: "git@github.com:hatch01/dartus-tomuss-client.git"
+      resolved-ref: "5ab4bb5f2ba9efd9c27ed29e913c01a2a4cc6da4"
+      url: "https://github.com/hatch01/dartus-tomuss-client.git"
     source: git
     version: "1.0.3"
   dartz:
@@ -241,6 +241,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.3"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.8"
+  device_info_plus:
+    dependency: "direct main"
+    description:
+      name: device_info_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.0.1"
+  device_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.1"
   dio:
     dependency: transitive
     description:
@@ -351,6 +372,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_local_notifications:
+    dependency: "direct main"
+    description:
+      name: flutter_local_notifications
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "12.0.2"
+  flutter_local_notifications_linux:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  flutter_local_notifications_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.0"
+  flutter_speed_dial:
+    dependency: "direct main"
+    description:
+      name: flutter_speed_dial
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -367,7 +416,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.3"
+    version: "3.1.0"
   glob:
     dependency: transitive
     description:
@@ -381,7 +430,7 @@ packages:
       name: graphs
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   hex:
     dependency: transitive
     description:
@@ -409,14 +458,14 @@ packages:
       name: hive_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.3"
+    version: "2.0.0"
   html:
     dependency: transitive
     description:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.0"
+    version: "0.15.1"
   http:
     dependency: transitive
     description:
@@ -437,7 +486,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   icalendar_parser:
     dependency: transitive
     description:
@@ -451,7 +500,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "3.2.2"
   intl:
     dependency: transitive
     description:
@@ -486,7 +535,7 @@ packages:
       name: lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   logging:
     dependency: transitive
     description:
@@ -499,8 +548,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f708723173899022efe6175bb4b0fda6be84a4f6
-      url: "git@github.com:hatch01/lyon1-agendaclient.git"
+      resolved-ref: f9bd8ea34ff22cbb54542df72b43be4c647b5389
+      url: "https://github.com/hatch01/lyon1-agendaclient.git"
     source: git
     version: "1.0.0"
   lyon1mail:
@@ -508,8 +557,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "12507f66b51f23e9d31b5985d5e8fbb2a1a59a4c"
-      url: "git@github.com:hatch01/lyon1-mailclient.git"
+      resolved-ref: "0e5fba6f58eeaec1bf45c3d534c398e26b28e595"
+      url: "https://github.com/hatch01/lyon1-mailclient.git"
     source: git
     version: "1.0.0"
   matcher:
@@ -630,21 +679,21 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "10.1.0"
+    version: "10.2.0"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "10.1.0"
+    version: "10.2.0"
   permission_handler_apple:
     dependency: transitive
     description:
       name: permission_handler_apple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.6"
+    version: "9.0.7"
   permission_handler_platform_interface:
     dependency: transitive
     description:
@@ -658,14 +707,14 @@ packages:
       name: permission_handler_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
   petitparser:
     dependency: transitive
     description:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.0"
   platform:
     dependency: transitive
     description:
@@ -707,14 +756,14 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.3"
+    version: "6.0.4"
   pub_semver:
     dependency: transitive
     description:
       name: pub_semver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   pubspec_parse:
     dependency: transitive
     description:
@@ -757,13 +806,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  simple_dark_mode_webview:
-    dependency: "direct main"
-    description:
-      name: simple_dark_mode_webview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   sizer:
     dependency: "direct main"
     description:
@@ -782,7 +824,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.5"
+    version: "1.2.6"
   source_helper:
     dependency: transitive
     description:
@@ -839,6 +881,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
+  timezone:
+    dependency: transitive
+    description:
+      name: timezone
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0"
   timing:
     dependency: transitive
     description:
@@ -873,7 +922,7 @@ packages:
       name: watcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   web_socket_channel:
     dependency: transitive
     description:
@@ -915,7 +964,14 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
+  workmanager:
+    dependency: "direct main"
+    description:
+      name: workmanager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -938,5 +994,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.17.0 <3.0.0"
+  dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.0.0"

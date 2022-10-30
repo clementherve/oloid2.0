@@ -10,12 +10,17 @@ class EmailConnect extends EmailEvent {
   EmailConnect({required this.username, required this.password});
 }
 
-class EmailLoad extends EmailEvent {}
+class EmailLoad extends EmailEvent {
+  final bool cache;
+  EmailLoad({this.cache=true});
+}
 
 class EmailSend extends EmailEvent {
   final EmailModel email;
+  final int? replyOriginalMessageId;
+  final bool? replyAll;
 
-  EmailSend(this.email);
+  EmailSend(this.email, {this.replyOriginalMessageId, this.replyAll});
 }
 
 class EmailMarkAsRead extends EmailEvent {
@@ -24,8 +29,16 @@ class EmailMarkAsRead extends EmailEvent {
   EmailMarkAsRead(this.email);
 }
 
-class EmailSort extends EmailEvent {
+class EmailDelete extends EmailEvent {
+  final EmailModel email;
+
+  EmailDelete(this.email);
+}
+
+class EmailFilter extends EmailEvent {
   final String filter;
 
-  EmailSort(this.filter);
+  EmailFilter(this.filter);
 }
+
+class EmailIncreaseNumber extends EmailEvent {}

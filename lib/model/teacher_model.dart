@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -20,4 +22,20 @@ class TeacherModel {
 
   String get name => _name;
   String get email => _email;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TeacherModel &&
+          runtimeType == other.runtimeType &&
+          _name == other._name &&
+          _email == other._email;
+
+  @override
+  int get hashCode => super.hashCode;
+
+  @override
+  String toString() {
+    return 'TeacherModel{_name: $_name, _email: $_email}';
+  }
 }

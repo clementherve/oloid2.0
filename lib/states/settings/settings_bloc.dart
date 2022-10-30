@@ -4,8 +4,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/model/settings.dart';
+import 'package:workmanager/workmanager.dart';
+
+import 'package:oloid2/functionalities/settings_backend/settings_backend.dart';
 
 part 'settings_event.dart';
 
@@ -16,7 +18,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   SettingsBloc() : super(SettingsInitial()) {
     on<SettingsEvent>((event, emit) {
-      // TODO: implement event handler
+      if (kDebugMode) {
+        print("SettingsBloc: $event");
+      }
     });
     on<SettingsLoad>(load);
     on<SettingsReset>(reset);
@@ -26,30 +30,28 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   Future<void> reset(SettingsReset event, Emitter<SettingsState> emit) async {
     settings = SettingsModel();
-    Box<SettingsModel> box = Hive.box<SettingsModel>('settings');
-    await box.put('settings', settings);
-    await box.close();
+    await SettingsBackend.reset();
     emit(SettingsReady());
   }
 
   Future<void> load(SettingsLoad event, Emitter<SettingsState> emit) async {
-    Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
-    SettingsModel? tmpSettings = box.get('settings');
-    if (tmpSettings != null) {
-      settings = tmpSettings;
+    emit(SettingsLoading());
+    try{
+      settings = await SettingsBackend.load();
+    }catch(e){
+      settings = SettingsModel();
     }
-    await box.close();
     emit(SettingsReady());
+    if (!(settings.calendarUpdateNotification &&
+        settings.newMailNotification &&
+        settings.newGradeNotification)) {
+      Workmanager().cancelByUniqueName("updateChecking");
+    }
   }
 
   Future<void> modify(SettingsModify event, Emitter<SettingsState> emit) async {
-    if (kDebugMode) {
-      print("modify settings");
-    }
     settings = event.settings;
-    Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
-    await box.put('settings', settings);
-    await box.close();
+    await SettingsBackend.modify(settings: settings);
     emit(SettingsReady());
   }
 }

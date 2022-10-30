@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -12,7 +14,7 @@ class GradeModel {
   @HiveField(2)
   late double gradeNumerator;
   @HiveField(3)
-  late int gradeDenominator;
+  late double gradeDenominator;
   @HiveField(4)
   late int rank;
   @HiveField(5)
@@ -46,5 +48,28 @@ class GradeModel {
     mediane = grade.mediane;
     groupSize = grade.groupSize;
     isValidGrade = grade.isValidGrade;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GradeModel &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          author == other.author &&
+          gradeNumerator == other.gradeNumerator &&
+          gradeDenominator == other.gradeDenominator &&
+          rank == other.rank &&
+          average == other.average &&
+          mediane == other.mediane &&
+          groupSize == other.groupSize &&
+          isValidGrade == other.isValidGrade;
+
+  @override
+  int get hashCode => super.hashCode;
+
+  @override
+  String toString() {
+    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade}';
   }
 }

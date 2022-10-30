@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/mails/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
 import 'package:oloid2/page/teaching_units_page.dart';
+import 'package:oloid2/states/agenda/agenda_bloc.dart';
 import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {
@@ -53,17 +55,11 @@ class HomeState extends State<Home> {
                 duration: const Duration(milliseconds: 300),
               );
             } else if (currentIndex == index) {
-              if (currentIndex == 2) {
-                // TODO
-              } else if (currentIndex == 3) {
-                // TODO
+              if (currentIndex == 1) {
+                context
+                    .read<AgendaBloc>()
+                    .add(AgendaUpdateDisplayedDate(DateTime.now()));
               }
-
-              // if (pages[currentIndex] is EmailsPage) {
-              //   (pages[currentIndex] as EmailsPage).jumpToTop();
-              // } else if (pages[currentIndex] is AgendaPage) {
-              //   (pages[currentIndex] as AgendaPage).jumpToTop();
-              // }
             } else {
               pageController.jumpToPage(index);
             }
